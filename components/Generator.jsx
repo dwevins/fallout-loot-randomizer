@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { generateLoot } from './utils'
 
-function submit(e) {
+function submit(e, formData) {
   e.preventDefault()
-  console.log('submit')
+  const loot = generateLoot(formData)
+  console.log(loot)
   return false
 }
 
@@ -12,8 +14,15 @@ const Generator = () => {
   const [allowConsumables, setAllowConsumables] = useState(false)
   const [allowMaterials, setAllowMaterials] = useState(false)
 
+  const formData = {
+    allowAmmo,
+    allowConsumables,
+    allowMaterials,
+    numItems
+  }
+
   return (
-    <form onSubmit={(e) => submit(e)}>
+    <form onSubmit={(e) => submit(e, formData)}>
       <label htmlFor="numItems">
         Number of items
         <input
@@ -27,7 +36,6 @@ const Generator = () => {
       </label>
 
       <div className="container">
-        <h3>Allowed loot types</h3>
         <div className="field">
           <label htmlFor="allowAmmo">
             <input
@@ -37,7 +45,7 @@ const Generator = () => {
               onChange={() => setAllowAmmo(!allowAmmo)}
               type="checkbox"
             />
-            Ammo
+            Allow Ammo
           </label>
         </div>
 
@@ -50,7 +58,7 @@ const Generator = () => {
               onChange={() => setAllowConsumables(!allowConsumables)}
               type="checkbox"
             />
-            Consumables
+            Allow Consumables
           </label>
         </div>
 
@@ -63,7 +71,7 @@ const Generator = () => {
               onChange={() => setAllowMaterials(!allowMaterials)}
               type="checkbox"
             />
-            Materials
+            Allow Materials
           </label>
         </div>
       </div>
