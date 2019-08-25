@@ -35,24 +35,23 @@ function rollMaterials() {
   return types[getRandom(types.length)]
 }
 
-export function generateLoot(options = {}) {
-  const {
-    allowAmmo,
-    allowConsumables,
-    allowMaterials,
-    numItems
-  } = options
-
-  const funcs = [
-    rollAmmo,
-    rollConsumables,
-    rollMaterials
-  ]
-
+export function generateLoot({
+  allowAmmo,
+  allowConsumables,
+  allowMaterials,
+  numItems
+}) {
   const loot = []
+  const funcs = []
 
-  for (let i = 0; i < numItems; i++) {
-    loot.push(funcs[getRandom(funcs.length)]())
+  allowAmmo && funcs.push(rollAmmo)
+  allowConsumables && funcs.push(rollConsumables)
+  allowMaterials && funcs.push(rollMaterials)
+
+  if (funcs.length) {
+    for (let i = 0; i < numItems; i++) {
+      loot.push(funcs[getRandom(funcs.length)]())
+    }
   }
 
   return loot
