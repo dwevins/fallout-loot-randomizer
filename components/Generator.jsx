@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { generateLoot } from './utils'
 import { Form, Readout } from '.'
+import { Container, Divider, Header } from 'semantic-ui-react'
 
 const Generator = ({ consumables }) => {
   const [allowAmmo, setAllowAmmo] = useState(false)
@@ -25,17 +26,22 @@ const Generator = ({ consumables }) => {
 
   return (
     <div className="generator">
-      <h3>Loot Options</h3>
-      <Form
-        {...formData}
-        onSubmit={() => setLoot(generateLoot(formData))}
-        {...formSetters}
-      />
+      <Container text>
+        <Divider hidden />
+        <Header>Loot Options</Header>
+        <Form
+          {...formData}
+          onSubmit={() => setLoot(generateLoot(formData))}
+          {...formSetters}
+        />
+      </Container>
       <br/>
-
-      <hr/>
-      <h3>Generated Loot</h3>
-      <Readout loot={loot}/>
+      <Divider />
+      <Container text>
+        <Divider hidden />
+        <Header>Generated Loot</Header>
+        <Readout loot={loot}/>
+      </Container>
     </div>
   )
 }
