@@ -1,12 +1,12 @@
 import React from 'react'
-import { Field } from '.'
+import { Divider, Form } from 'semantic-ui-react'
 
 function handleSubmit(e, callback) {
   e.preventDefault()
   callback()
 }
 
-const Form = ({
+const GeneratorForm = ({
   allowAmmo,
   allowConsumables,
   allowMaterials,
@@ -16,54 +16,49 @@ const Form = ({
   setAllowConsumables,
   setAllowMaterials,
   setNumItems
-}) => {
+}) => (
+  <Form onSubmit={(e) => handleSubmit(e, onSubmit)}>
+    <Form.Input
+      id="numItems"
+      label="Number of items"
+      min="1"
+      name="numItems"
+      onChange={(e) => setNumItems(e.target.value)}
+      type="number"
+      value={numItems}
+    />
 
-  return (
-    <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
-      <label htmlFor="numItems">
-        Number of items
-        <input
-          id="numItems"
-          min="1"
-          name="numItems"
-          onChange={(e) => setNumItems(e.target.value)}
-          type="number"
-          value={numItems}
-        />
-      </label>
+    <Divider hidden />
 
-      <div className="container">
-        <Field
-          checked={allowAmmo}
-          id="allowAmmo"
-          label="Allow Ammo"
-          name="itemTypes"
-          onChange={() => setAllowAmmo(!allowAmmo)}
-          type="checkbox"
-        />
+    <Form.Checkbox
+      checked={allowAmmo}
+      id="allowAmmo"
+      label="Allow Ammo"
+      name="itemTypes"
+      onChange={() => setAllowAmmo(!allowAmmo)}
+      toggle
+    />
+    <Form.Checkbox
+      checked={allowConsumables}
+      id="allowConsumables"
+      label= "Allow Consumables"
+      name="itemTypes"
+      onChange={() => setAllowConsumables(!allowConsumables)}
+      toggle
+    />
+    <Form.Checkbox
+      checked={allowMaterials}
+      id="allowMaterials"
+      label="Allow Materials"
+      name="itemTypes"
+      onChange={() => setAllowMaterials(!allowMaterials)}
+      toggle
+    />
 
-        <Field
-          checked={allowConsumables}
-          id="allowConsumables"
-          label= "Allow Consumables"
-          name="itemTypes"
-          onChange={() => setAllowConsumables(!allowConsumables)}
-          type="checkbox"
-        />
+    <Divider hidden />
 
-        <Field
-          checked={allowMaterials}
-          id="allowMaterials"
-          label="Allow Materials"
-          name="itemTypes"
-          onChange={() => setAllowMaterials(!allowMaterials)}
-          type="checkbox"
-        />
-      </div>
+    <Form.Button type="submit">Roll</Form.Button>
+  </Form>
+)
 
-      <button type="submit">Roll</button>
-    </form>
-  )
-}
-
-export default Form
+export default GeneratorForm
