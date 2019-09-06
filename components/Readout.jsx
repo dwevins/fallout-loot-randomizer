@@ -1,13 +1,16 @@
 import React from 'react'
+import { List } from 'semantic-ui-react'
 
 const Readout = ({loot}) => (
   <div className="readout">
-    {loot.length > 0 && loot.map((item, index) => (
-      <p key={index}>{item}</p>
-    ))}
-    {!loot.length && (
-      <p>no loot generated</p>
-    )}
+    <List>
+      {loot.length > 0 && loot.map((item, index) => (
+        <List.Item key={index}>{item}</List.Item>
+      ))}
+      {!loot.length && (
+        <List.Item>no loot generated</List.Item>
+      )}
+    </List>
   </div>
 )
 
